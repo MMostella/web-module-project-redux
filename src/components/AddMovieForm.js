@@ -23,6 +23,12 @@ const AddMovieForm = (props) => {
     }
 
     const handleSubmit = (e) => {
+        // props.addMovie(movie);
+    }
+
+    const handleAdd = () => {
+        props.addMovie({...movie, id: Date.now()})
+        push('/movies')
     }
 
     const { title, director, genre, metascore, description } = movie;
@@ -58,7 +64,7 @@ const AddMovieForm = (props) => {
                         			
                     </div>
                     <div className="modal-footer">
-                        <input type="submit" className="btn btn-success" value="Add"/>
+                        <input onClick={handleAdd} type="submit" className="btn btn-success" value="Add"/>
                         <Link to={`/movies`}><input type="button" className="btn btn-default" value="Cancel"/></Link>
                     </div>
                 </form>
@@ -67,4 +73,4 @@ const AddMovieForm = (props) => {
     </div>);
 }
 
-export default AddMovieForm;
+export default connect(() => ({}),{ addMovie })(AddMovieForm);
