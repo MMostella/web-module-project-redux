@@ -1,16 +1,26 @@
-import { ADD_FAVORITE } from '../actions/favoritesActions';
+import { ADD_FAVORITE, REMOVE_FAVORITE } from '../actions/favoritesActions';
 
 const initialState = {
     favorites: [],
-    displayFavorites: false
+    displayFavorites: true
 }
 
 const favoritesReducer = (state = initialState, action) => {
     switch(action.type) {
         case ADD_FAVORITE:
+            if (state.favorites.find((movie) => movie.id === action.payload.id)) {
+                return state;
+            }
             return {
                 ...state,
                 favorites: [...state.favorites, action.payload]
+            }
+        case REMOVE_FAVORITE:
+            return {
+                ...state,
+                favorites: state.favorites.filter((item) => {
+                    return item.id !== action.payload;
+                })
             }
         default:
             return state;
